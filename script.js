@@ -1,23 +1,27 @@
-//your code here
-// Get all elements that contain the item prices
-const priceElements = document.querySelectorAll('[data-ns-test="prices"]');
+function calculateTotal() {
+  const prices = Array.from(document.querySelectorAll('[data-ns-test="prices"]')).map((price) => parseFloat(price.textContent));
+  const grandTotal = document.querySelector('[data-ns-test="grandTotal"]');
+  
+  // Check if the number of prices is correct
+  if (prices.length !== 4) {
+    console.error('Incorrect number of prices');
+    return;
+  }
+  
+  const totalPrice = prices.reduce((acc, price) => acc + price, 0);
+  
+  // Check if the total price is correct
+  if (totalPrice !== parseFloat(grandTotal.textContent)) {
+    console.error('Incorrect total price');
+    return;
+  }
+  
+  // Add a new row to the table with the total price
+  const newRow = document.createElement('tr');
+  const newCell = document.createElement('td');
+  newCell.textContent = `Total: ${totalPrice.toFixed(2)}`;
+  newRow.appendChild(newCell);
+  grandTotal.parentElement.parentElement.appendChild(newRow);
+}
 
-// Initialize a variable to store the total price
-let totalPrice = 0;
-
-// Loop through each price element and add the price to the total
-priceElements.forEach(priceElement => {
-  totalPrice += parseFloat(priceElement.textContent);
-});
-
-// Create a new row for the total price
-const totalRow = document.createElement('tr');
-const totalCell = document.createElement('td');
-totalCell.setAttribute('colspan', '2');
-totalCell.setAttribute('data-ns-test', 'grandTotal');
-totalCell.textContent = `Total Price: ${totalPrice.toFixed(2)}`;
-totalRow.appendChild(totalCell);
-
-// Add the new row to the table
-const table = document.querySelector('table');
-table.appendChild(totalRow);
+calculateTotal();
