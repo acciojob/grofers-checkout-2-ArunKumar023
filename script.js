@@ -1,27 +1,19 @@
-function calculateTotal() {
-  const prices = Array.from(document.querySelectorAll('[data-ns-test="prices"]')).map((price) => parseFloat(price.textContent));
-  const grandTotal = document.querySelector('[data-ns-test="grandTotal"]');
-  
-  // Check if the number of prices is correct
-  if (prices.length !== 4) {
-    console.error('Incorrect number of prices');
-    return;
-  }
-  
-  const totalPrice = prices.reduce((acc, price) => acc + price, 0);
-  
-  // Check if the total price is correct
-  if (totalPrice !== parseFloat(grandTotal.textContent)) {
-    console.error('Incorrect total price');
-    return;
-  }
-  
-  // Add a new row to the table with the total price
-  const newRow = document.createElement('tr');
-  const newCell = document.createElement('td');
-  newCell.textContent = `Total: ${totalPrice.toFixed(2)}`;
-  newRow.appendChild(newCell);
-  grandTotal.parentElement.parentElement.appendChild(newRow);
+//your code here
+// Get all the elements with data-ns-test="prices"
+const pricesElements = document.querySelectorAll('[data-ns-test="prices"]');
+
+// Calculate the sum of all prices
+let total = 0;
+for (let i = 0; i < pricesElements.length; i++) {
+  total += parseFloat(pricesElements[i].innerText);
 }
 
-calculateTotal();
+// Create a new row for the total and add it to the table
+const newRow = document.createElement('tr');
+const totalCell = document.createElement('td');
+totalCell.innerText = `Total: $${total.toFixed(2)}`;
+newRow.appendChild(totalCell);
+document.querySelector('table').appendChild(newRow);
+
+// Set the data-ns-test attribute for the total cell
+totalCell.setAttribute('data-ns-test', 'grandTotal');
