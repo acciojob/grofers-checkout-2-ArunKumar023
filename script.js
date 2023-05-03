@@ -1,14 +1,14 @@
 //your code here
 
 
-var table = document.querySelector('table');
- var lastRow = document.createElement('tr');
- var prices = document.querySelectorAll('[data-ns-test=price]');
+ const table = document.querySelector('table');
+ const lastRow = document.createElement('tr');
+ const prices = document.querySelectorAll('[data-ns-test=price]');
  let sum = 0;
  for(let i = 0; i < prices.length; i++) {
   sum += parseInt(prices[i].textContent);
  }
- var child = document.createElement("td");
+ const child = document.createElement("td");
  child.setAttribute('data-ns-test', 'grandTotal');
 
 
