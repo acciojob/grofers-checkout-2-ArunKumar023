@@ -1,21 +1,17 @@
 //your code here
 
-const prices = document.querySelectorAll('[data-ns-test="prices"]');
 
-let total = 0;
-prices.forEach(price => {
-  total += parseFloat(price.textContent);
-});
+var table = document.querySelector('table');
+ var lastRow = document.createElement('tr');
+ var prices = document.querySelectorAll('[data-ns-test=price]');
+ let sum = 0;
+ for(let i = 0; i < prices.length; i++) {
+  sum += parseInt(prices[i].textContent);
+ }
+ var child = document.createElement("td");
+ child.setAttribute('data-ns-test', 'grandTotal');
 
-const newRow = document.createElement('tr');
 
-const newCell = document.createElement('td');
-
-newCell.setAttribute('data-ns-test', 'grandTotal');
-
-newCell.textContent = total.toFixed(2);
-
-newRow.appendChild(newCell);
-
-const table = document.querySelector('table');
-table.appendChild(newRow);
+ child.textContent = sum;
+ lastRow.appendChild(child);
+ table.appendChild(lastRow);
